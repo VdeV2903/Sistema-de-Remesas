@@ -1,0 +1,25 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Nov 14, 2022, 9:19:27 PM
+    Author     : Aquintanilla
+*/
+body
+{
+    background-color: #ECF3FD;
+    font-size: 14px;
+    font-family: Verdana, "Verdana CE",  Arial, "Arial CE", "Lucida Grande CE", lucida, "Helvetica CE", sans-serif;
+    color: #000000;  
+    margin: 10px;
+}
+
+.login
+{
+    width: 325px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+}

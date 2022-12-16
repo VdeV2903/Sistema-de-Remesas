@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <body>
+
+        <ui:composition template="./../../plantilla/plantilla.xhtml">
+
+            <ui:define name="content">
+                <h:form>
+                    <p:commandButton value="Agregar Estado" actionListener="#{estadoControl.limpiarEstado()}" oncomplete="PF('dialogoAgregar').show();" update=":formAgregar"/>
+                    <p:separator/>
+                </h:form>
+                <h1 align="CENTER"></h1>
+                <h:form id="formListado">
+                    <p:dataTable id="tablaEstados" paginator="true" rows="10" paginatorPosition="bottom" var ="estado" value="#{estadoControl.listaEstados}"
+                                 emptyMessage="No existen estado">
+                        <p:column headerText="ID" >
+                            <p:outputLabel value="#{estado.idEstado}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="Nombre" >
+                            <p:outputLabel value="#{estado.nombre}"></p:outputLabel>
+                        </p:column>
+                        <p:column headerText="MODIFICAR" style="text-align: center">
+                            <p:commandButton icon="pi pi-pencil" title="Modificar" oncomplete="PF('dialogoModificar').show();" update=":formModificar">
+                                <f:setPropertyActionListener target="#{estadoControl.estado}" value="#{estado}"/>
+                            </p:commandButton>
+                        </p:column>
+                        <p:column headerText="ELIMINAR" style="text-align: center">
+                            <p:commandButton icon="pi pi-trash" title="Eliminar" oncomplete="PF('dialogoEliminar').show();" update=":formEliminar">
+                                <f:setPropertyActionListener target="#{estadoControl.estado}" value="#{estado}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+
+                <h:form id="formAgregar">
+                    <p:dialog id="dlgAgregar" header="Agregar Estado" widgetVar="dialogoAgregar" resizable="false" showEffect="fade" hideEffect="explode" modal="true">
+                        <p:panelGrid columns="2" style="margin: 0 auto;">
+                            <p:outputLabel value="Nombre:"/>
+                            <p:inputText value="#{estadoControl.estado.nombre}"/>
+                            </p:panelGrid>
+                        <br/>
+                        <center>
+                        <p:commandButton  value="Guardar" actionListener="#{estadoControl.agregarEstado()}" update=":formListado:tablaEstados" oncomplete="PF('dialogoAgregar').hide();"/>&nbsp;
+                        <p:commandButton  value="Cancelar" onclick="PF('dialogoAgregar').hide();"/>
+                        </center>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formModificar">
+                    <p:dialog id="dlgModificar" header="Modificar Estado" widgetVar="dialogoModificar" resizable="false" showEffect="fade" hideEffect="explode" modal="true">
+                        <p:panelGrid columns="2" style="margin: 0 auto;">
+                            <p:outputLabel value="ID:"/>
+                            <p:inputText value="#{estadoControl.estado.idEstado}" disabled="true"/>
+                            <p:outputLabel value="Nombre:"/>
+                            <p:inputText value="#{estadoControl.estado.nombre}"/>
+                            </p:panelGrid>
+                        <br/>
+                        <center>
+                        <p:commandButton  value="Guardar" actionListener="#{estadoControl.modificarEstado()}" update=":formListado:tablaEstados" oncomplete="PF('dialogoModificar').hide();"/>&nbsp;
+                        <p:commandButton  value="Cancelar" onclick="PF('dialogoModificar').hide();"/>
+                        </center>
+                    </p:dialog>
+                </h:form>
+
+                <h:form id="formEliminar">
+                    <p:dialog id="dlgEliminar" header="Eliminar Estado" widgetVar="dialogoEliminar" resizable="false" showEffect="fade" hideEffect="explode" modal="true">
+                        <h:outputText value="Desea eliminar este registro?" style="font-weight: bold"/>
+                        <br/>
+                        <br/>
+                        <center>
+                        <p:commandButton  value="Si" actionListener="#{estadoControl.eliminarEstado()}" update=":formListado:tablaEstados" oncomplete="PF('dialogoEliminar').hide();"/>&nbsp;
+                        <p:commandButton  value="No" onclick="PF('dialogoEliminar').hide();"/>
+                        </center>
+                    </p:dialog>
+                </h:form>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>
